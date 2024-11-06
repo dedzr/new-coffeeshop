@@ -8628,7 +8628,7 @@
                                     <div id=collapse-auth-login class="panel-collapse collapse">
                                         <div class=panel-body>
                                             <h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
-                                                &#34;email&#34;:&#34;asdasd&#34;,
+                                                &#34;phoneNumber&#34;:&#34;01745728072&#34;,
                                                 &#34;password&#34;:&#34;123456&#34;
                                                 }</span>
                                             <div class=clearfix></div>
@@ -8675,19 +8675,27 @@
                                         <div class=panel-body></div>
                                     </div>
                                 </div>
-                                <div class="panel panel-info" id=jump-auth-verifyotp>
-                                    <div class=panel-heading><small class="pull-right text-muted"></small><a
-                                            class=text-info data-toggle=collapse data-parent=#accordion-auth
+                                <div class="panel panel-success" id=jump-auth-verifyotp>
+                                    <div class=panel-heading><small class="pull-right text-muted">raw</small>
+                                        <a class=text-success data-toggle=collapse data-parent=#accordion-auth
                                             href=#collapse-auth-verifyotp>
                                             <h4 class=panel-title><span
                                                     class="glyphicon glyphicon-plus"></span><strong>verify otp</strong>
                                                 &nbsp;|&nbsp;
-                                                <strong class="request-method border-info">GET</strong>
+                                                <strong class="request-method border-success">POST</strong>
                                                 &nbsp;
+                                                https://new-coffeeshop.onrender.com/auth/verify-otp
                                             </h4>
-                                        </a></div>
+                                        </a>
+                                    </div>
                                     <div id=collapse-auth-verifyotp class="panel-collapse collapse">
-                                        <div class=panel-body></div>
+                                        <div class=panel-body>
+                                            <h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+                                                &#34;phoneNumber&#34;:&#34;01745728072&#34;,
+                                                &#34;otp&#34;:&#34;283148&#34;
+                                                }</span>
+                                            <div class=clearfix></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-success" id=jump-auth-resendotp>
@@ -8893,7 +8901,7 @@
                                                     reviews</strong> &nbsp;|&nbsp;
                                                 <strong class="request-method border-info">GET</strong>
                                                 &nbsp;
-                                                https://new-coffeeshop.onrender.com/products/67290368b81bf8b8969c329e/reviews
+                                                https://new-coffeeshop.onrender.com/products/6729f3470b4e53aa1f189f97/reviews
                                             </h4>
                                         </a></div>
                                     <div id=collapse-product-getproductreviews class="panel-collapse collapse">
@@ -9238,7 +9246,7 @@
         <div class=container-fluid>
             <div class="span12 text-center"><span data-toggle=tooltip
                     title="If the application help you, please feel free to give a star to the project in github. Your star inspire me to work more on open-source projects like this!">Generated
-                    at 2024-11-06 07:21:45 by <a href=https://github.com/thedevsaddam/docgen target=_blank
+                    at 2024-11-06 07:45:57 by <a href=https://github.com/thedevsaddam/docgen target=_blank
                         class=text-muted>docgen</a></span></div>
         </div>
     </footer>
