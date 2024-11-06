@@ -1,0 +1,10 @@
+const EXPRESS_SHIPPING=1099;
+const STANDARD_SHIPPING=799;
+
+
+
+
+module.exports={
+    EXPRESS_SHIPPING,
+    STANDARD_SHIPPING,
+}
