@@ -158,7 +158,8 @@ async function httpResendOtp(req,res)
 
 async function httpCreateAdmin(req,res)
 {
-    const { name, phoneNumber, password } = req.body;
+    const { name, password } = req.body;
+    let {phoneNumber}=req.body;
 
     if(!name || !phoneNumber || !password)
     {
