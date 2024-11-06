@@ -98,6 +98,11 @@ async function httpVerifyOtp(req,res)
         throw new CustomError.BadRequestError("Please provide phone number and otp");
     }
 
+    const user=await User.findOne({phoneNumber});
+
+    if(user.isVerified)
+        throw new CustomError.BadRequestError("You are already verifed");
+
     const otpDoc = await OTP.findOne({ phoneNumber, otp });
     if (!otpDoc || otpDoc.expiresAt < new Date()) {
       return res.status(400).json({ message: 'Invalid or expired OTP' });
@@ -123,6 +128,9 @@ async function httpResendOtp(req,res)
     const user = await User.findOne({ phoneNumber });
     if (!user)
         throw new CustomError.NotFoundError("User not found"); 
+
+    if(user.isVerified)
+        throw new CustomError.BadRequestError("You are already verifed");
 
     const otpExists=await OTP.findOne({phoneNumber});
 
@@ -175,12 +183,13 @@ async function httpCreateAdmin(req,res)
         name,
         phoneNumber,
         password,
+        isVerified:true,
         role: 'admin' // Explicitly set as 'admin'
     });
 
     await user.save();
 
-    res.status(StatusCodes.CREATED).json({ user });
+    res.status(StatusCodes.CREATED).json({ ...user._doc,password });
 
 }
 
