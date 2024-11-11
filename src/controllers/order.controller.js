@@ -10,10 +10,10 @@ async function fakeStripeAPI(amount, currency) {
     return { client_secret: "asdasd", amount };
 }
 
-// Helper function for creating order items and calculating subtotal
+// Helper function for creating order items and calculating subTotal
 async function createOrderItems(cartItems) {
     let orderItems = [];
-    let subtotal = 0;
+    let subTotal = 0;
     let willChargeShipping = false;
 
     await Promise.all(cartItems.map(async (item) => {
@@ -35,16 +35,16 @@ async function createOrderItems(cartItems) {
         };
 
         orderItems.push(singleOrderItem);
-        subtotal += item.amount * price;
+        subTotal += item.amount * price;
     }));
 
-    return { orderItems, subtotal, willChargeShipping };
+    return { orderItems, subTotal, willChargeShipping };
 }
 
 // Helper function to calculate total with tax and shipping
-function calculateTotal(subtotal, shippingFee) {
-    const tax = Math.round(subtotal * 0.15);
-    return { tax, total: tax + shippingFee + subtotal };
+function calculateTotal(subTotal, shippingFee) {
+    const tax = Math.round(subTotal * 0.15);
+    return { tax, total: tax + shippingFee + subTotal };
 }
 
 async function httpGetAllOrders(req, res) {
@@ -79,12 +79,12 @@ async function httpCreateOrder(req, res) {
     if (!['standard', 'express'].includes(shippingType)) throw new CustomAPIError.BadRequestError("Invalid shipping type");
     if (!paymentType) throw new CustomAPIError.BadRequestError("Payment type required");
 
-    const { orderItems, subtotal, willChargeShipping } = await createOrderItems(cartItems);
+    const { orderItems, subTotal, willChargeShipping } = await createOrderItems(cartItems);
     const shippingFee = willChargeShipping
         ? (shippingType === 'express' ? EXPRESS_SHIPPING : STANDARD_SHIPPING)
         : 0;
 
-    const { tax, total } = calculateTotal(subtotal, shippingFee);
+    const { tax, total } = calculateTotal(subTotal, shippingFee);
 
     let order;
     let clientSecret = null;
@@ -95,7 +95,7 @@ async function httpCreateOrder(req, res) {
             address,
             shippingFee,
             shippingType,
-            subtotal,
+            subTotal,
             total,
             cartItems: orderItems,
             user: req.user.userId,
@@ -109,7 +109,7 @@ async function httpCreateOrder(req, res) {
             address,
             shippingFee,
             shippingType,
-            subtotal,
+            subTotal,
             total,
             cartItems: orderItems,
             user: req.user.userId,
@@ -123,7 +123,7 @@ async function httpCreateOrder(req, res) {
             address,
             shippingFee,
             shippingType,
-            subtotal,
+            subTotal,
             total,
             cartItems: orderItems,
             user: req.user.userId,
