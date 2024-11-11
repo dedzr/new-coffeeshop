@@ -1,7 +1,5 @@
 
-
 const mongoose=require('mongoose');
-
 
 const singleCartItem=new mongoose.Schema({
 
@@ -52,18 +50,27 @@ const orderSchemma= new mongoose.Schema({
     cartItems:[singleCartItem],
     status:{
         type:String,
-        enums:['pending','failed','accepted','delivered','canceled'],
+        enums:{
+            values:['pending','failed','accepted','delivered','canceled'],
+            message:"{VALUE} is not supported. please provide between these 'pending','failed','accepted','delivered','canceled'" ,
+        },
         required:true,
         default:'pending',
     },
     paymentStatus:{
         type:String,
-        enums:['paid','not-paid'],
+        enums:{
+            values:['paid','not-paid'],
+            message:"{VALUE} is not supported. please provide between these 'paid','not-paid'" ,
+        },
         default:'not-paid',
     },
     paymentType:{
         type:String,
-        enums:['cash-on-delivery','stripe'],
+        enums:{
+            values:['cash-on-delivery','stripe'],
+            message:"{VALUE} is not supported. please provide between these 'cash-on-delivery','stripe'" ,
+        },
         required:true,
     },
     user:{

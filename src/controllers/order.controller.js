@@ -74,9 +74,8 @@ async function httpGetCurrentUserOrders(req, res) {
 
 async function httpCreateOrder(req, res) {
     const { paymentType, address, shippingType, items: cartItems } = req.body;
-
     if (!cartItems || cartItems.length < 1) throw new CustomAPIError.BadRequestError("No cart provided");
-    if (!['standard', 'express'].includes(shippingType)) throw new CustomAPIError.BadRequestError("Invalid shipping type");
+    if (!['standard', 'express'].includes(shippingType)) throw new CustomAPIError.BadRequestError("Invalid shipping type, should be either 'standard', 'express'");
     if (!paymentType) throw new CustomAPIError.BadRequestError("Payment type required");
 
     const { orderItems, subTotal, willChargeShipping } = await createOrderItems(cartItems);
