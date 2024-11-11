@@ -2,8 +2,9 @@
 const { verifyJWT, createTokenUser, attachCookiesToResponse } = require('../utils');
 const CustomAPIError = require('../errors');
 const tokenUserFormatter = require('../utils/token-user-formatter');
+const User = require('../models/User');
 
-function authenticateUser(req,res,next)
+async function authenticateUser(req,res,next)
 {
 
     const token=req.signedCookies.Token;
@@ -16,6 +17,13 @@ function authenticateUser(req,res,next)
     {
         try {
             const verifedToken=verifyJWT(token);
+
+            const user=await User.findById(verifedToken.userId);
+
+            if(!user || user.tokenVersion!==verifedToken.tokenVersion)
+            {
+                throw new CustomAPIError.UnauthenticatedError("Invalid credentials");
+            }
 
     
             req.user=tokenUserFormatter(verifedToken);
@@ -38,7 +46,6 @@ function authenticateUser(req,res,next)
             
         } catch (error) {
 
-            console.log(error);
             throw new CustomAPIError.UnauthenticatedError("Invalid credentails");
             
         }

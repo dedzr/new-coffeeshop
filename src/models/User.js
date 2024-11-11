@@ -22,6 +22,10 @@ const UserSchema=new mongoose.Schema({
             message: props => `${props.value} is not a valid Bangladeshi phone number!`
           },
     },
+    tokenVersion:{
+        type:Number,
+        default:0,
+    },
     password: {
          type: String,   
          required:[true,"please provide a password"],

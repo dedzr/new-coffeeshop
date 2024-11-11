@@ -1,4 +1,4 @@
-const { httpCreatePorduct, httpGetAllProducts, httpGetSingleProduct, httpUpdateProduct, httpDeleteProduct, httpUploadImage, httpSearchProduct } = require('../controllers/product.controller');
+const { httpCreateProduct, httpGetAllProducts, httpGetSingleProduct, httpUpdateProduct, httpDeleteProduct, httpUploadImage, httpSearchProduct } = require('../controllers/product.controller');
 const { httpGetSingleProductReviews } = require('../controllers/review.controller');
 const { authenticateUser, authenticateRoles } = require('../middlewares/authentication');
 
@@ -8,7 +8,7 @@ const productRouter=require('express').Router();
 
 
 productRouter.get('/',httpGetAllProducts);
-productRouter.post('/',authenticateUser,authenticateRoles('admin','super-admin'),httpCreatePorduct);
+productRouter.post('/',authenticateUser,authenticateRoles('admin','super-admin'),httpCreateProduct);
 productRouter.get('/search',authenticateUser,httpSearchProduct);
 productRouter.patch('/:id',authenticateUser,authenticateRoles('admin','super-admin'),httpUpdateProduct);
 productRouter.delete('/:id',authenticateUser,authenticateRoles('admin','super-admin'),httpDeleteProduct);

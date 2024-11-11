@@ -4,6 +4,8 @@ const  {attachCookiesToResponse,verifyJWT } = require("./jwt");
 const isOtpCreatedWithinLastMinute = require("./otp-time-checker");
 const normalizePhoneNumber = require("./phone-checker");
 const generateUserTokenDB = require("./userTokenDB");
+const validateImage = require("./validate-image");
+const validateRequiredFields = require("./validate-requiredFields");
 
 
 module.exports={
@@ -14,6 +16,8 @@ module.exports={
     normalizePhoneNumber,
     isOtpCreatedWithinLastMinute,
     STANDARD_SHIPPING,
-    EXPRESS_SHIPPING
+    EXPRESS_SHIPPING,
+    validateImage,
+    validateRequiredFields
     
 }

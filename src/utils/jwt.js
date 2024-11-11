@@ -4,7 +4,7 @@ require('dotenv').config();
 function createJWT(user) {
 
 
-    return jwt.sign({userId:user.userId,name:user.name,role:user.role},process.env.JWT_SECRET,{expiresIn:process.env.JWT_LIFETIME});
+    return jwt.sign({userId:user.userId,name:user.name,role:user.role,tokenVersion:user.tokenVersion},process.env.JWT_SECRET,{expiresIn:process.env.JWT_LIFETIME});
 }
 
 function verifyJWT(token)
@@ -16,8 +16,6 @@ function verifyJWT(token)
 function attachCookiesToResponse(res,user)
 {
     const token=createJWT(user);
-
-    console.log(token);
 
     res.cookie('Token',token,{maxAge:1000*60*5,httpOnly:true,signed:true,});
 }

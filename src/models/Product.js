@@ -31,7 +31,7 @@ const ProductSchema=new mongoose.Schema({
         enum:
         {
             values:['coffee','fastfood','colddrinks'],
-            message:'{VALUE} is not supported',
+            message:"{VALUE} is not supported. please provide between these coffee','fastfood','colddrinks" ,
         },
     
     },

@@ -4,6 +4,7 @@ const cloudinary=require('cloudinary').v2;
 const CustomAPIError = require("../errors");
 const Product = require("../models/Product");
 const { StatusCodes } = require("http-status-codes");
+const { validateImage } = require('../utils');
 
 
 
@@ -27,7 +28,7 @@ async function httpSearchProduct(req,res)
 
 
 
-async function httpCreatePorduct(req,res)
+async function httpCreateProduct(req,res)
 {
 
     req.body.user=req.user.userId;
@@ -100,8 +101,6 @@ async function httpDeleteProduct(req,res)
     if(!product)
         throw new CustomAPIError.NotFoundError("Product not found");
 
-
-
     await product.deleteOne();
     res.sendStatus(StatusCodes.OK);
     
@@ -114,14 +113,7 @@ async function httpUploadImage(req,res)
  
     const productImage=req.files.image;
 
-    if(!productImage.mimetype.startsWith('image'))
-        throw new CustomAPIError.BadRequestError("You must upload a image");
-
-
-    const maxSize=1024*1024;
-
-    if(productImage.size>maxSize)
-        throw new CustomAPIError.BadRequestError("Max size of image must be 1MB");
+    validateImage(productImage);
 
     const result=await cloudinary.uploader.upload(
         req.files.image.tempFilePath,
@@ -141,7 +133,7 @@ async function httpUploadImage(req,res)
 
 
 module.exports={
-    httpCreatePorduct,
+    httpCreateProduct,
     httpGetAllProducts,
     httpGetSingleProduct,
     httpUpdateProduct,
