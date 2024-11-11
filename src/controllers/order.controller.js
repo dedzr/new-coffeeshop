@@ -77,6 +77,7 @@ async function httpCreateOrder(req, res) {
     if (!cartItems || cartItems.length < 1) throw new CustomAPIError.BadRequestError("No cart provided");
     if (!['standard', 'express'].includes(shippingType)) throw new CustomAPIError.BadRequestError("Invalid shipping type, should be either 'standard', 'express'");
     if (!paymentType) throw new CustomAPIError.BadRequestError("Payment type required");
+    if(!['cash-on-delivery','stripe'].includes(paymentType)) throw new CustomAPIError.BadRequestError("Invalid payment type, should be either 'cash-on-delivery','stripe'")
 
     const { orderItems, subTotal, willChargeShipping } = await createOrderItems(cartItems);
     const shippingFee = willChargeShipping
