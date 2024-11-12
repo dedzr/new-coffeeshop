@@ -1,3 +1,4 @@
+const willTokenExpireInOneMinute = require("./check-token-expiry");
 const { STANDARD_SHIPPING, EXPRESS_SHIPPING } = require("./constants");
 const generateOtp = require("./generate-otp");
 const  {attachCookiesToResponse,verifyJWT } = require("./jwt");
@@ -18,6 +19,7 @@ module.exports={
     STANDARD_SHIPPING,
     EXPRESS_SHIPPING,
     validateImage,
-    validateRequiredFields
+    validateRequiredFields,
+    willTokenExpireInOneMinute
     
 }

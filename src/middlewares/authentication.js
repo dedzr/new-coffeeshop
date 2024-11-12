@@ -1,5 +1,5 @@
 
-const { verifyJWT, createTokenUser, attachCookiesToResponse } = require('../utils');
+const { verifyJWT, attachCookiesToResponse, willTokenExpireInOneMinute } = require('../utils');
 const CustomAPIError = require('../errors');
 const tokenUserFormatter = require('../utils/token-user-formatter');
 const User = require('../models/User');
@@ -29,15 +29,10 @@ async function authenticateUser(req,res,next)
             req.user=tokenUserFormatter(verifedToken);
            
 
-            const currentTime = Math.floor(Date.now() / 1000); 
             const tokenExpTime = verifedToken.exp;
 
-
-            if (tokenExpTime - currentTime < 1 * 60) { // Less than 1 minutes to expire
-                // Generate a new token
-                console.log("new token");
+            if (willTokenExpireInOneMinute(tokenExpTime)) {
                attachCookiesToResponse(res,req.user);
-
             }
 
             next();
